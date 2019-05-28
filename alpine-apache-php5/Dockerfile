@@ -8,7 +8,9 @@ MAINTAINER marstone <i@marstone.net>
 # Install basics first
 RUN apk add --update --no-cache \
     bash curl ca-certificates openssl openssh git tzdata openntpd nano \
-    apache2 php5-apache2 php5 \
+    apache2 apache2-utils \
+	apache2-webdav mod_dav_svn subversion \
+	php5-apache2 php5 \
     php5-phar \
     php5-json \
     php5-iconv \

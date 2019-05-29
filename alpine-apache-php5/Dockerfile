@@ -10,6 +10,7 @@ RUN apk add --update --no-cache \
     bash curl ca-certificates openssl openssh git tzdata openntpd nano \
     apache2 apache2-utils apache2-webdav \
     mod_dav_svn subversion \
+	python \
 	php5-apache2 php5 \
     php5-phar \
     php5-json \
@@ -33,6 +34,7 @@ RUN apk add --update --no-cache \
     php5-odbc \
     php5-pdo_mysql \
     php5-pdo_sqlite \
+    php5-pear \
     php5-gettext \
     php5-xmlreader \
     php5-xmlrpc \
@@ -42,6 +44,12 @@ RUN apk add --update --no-cache \
     php5-ctype \
     php5-exif \
     php5-zlib
+
+# 
+RUN pear channel-update pear.php.net \
+    && pear upgrade-all \
+    && pear config-set auto_discover 1 \
+    && pear install File_Passwd --alldeps
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer

@@ -45,11 +45,14 @@ RUN apk add --update --no-cache \
     php5-exif \
     php5-zlib
 
-# 
+# Install pear File_Passwd & patch it
 RUN pear channel-update pear.php.net \
     && pear upgrade-all \
     && pear config-set auto_discover 1 \
     && pear install File_Passwd --alldeps
+
+RUN sed -i "/define('FILE_PASSWD_PLAIN'/a define('PEAR_ZE2', false);" /usr/share/pear/File/Passwd.php 
+
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
